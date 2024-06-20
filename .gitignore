@@ -12,8 +12,8 @@ test
 data
 nohup.out
 temp
-submodules/diff_gaussian_rasterization/diff_gaussian_rasterization.egg-info
-submodules/diff_gaussian_rasterization/build
-submodules/diff_gaussian_rasterization/dist
+submodules/diff-gaussian-rasterization/diff-gaussian-rasterization.egg-info
+submodules/diff-gaussian-rasterization/build
+submodules/diff-gaussian-rasterization/dist
 submodules/omnidata/pretrained_models
 
