@@ -155,7 +155,7 @@ def normal2rotation(n):
     R0 = w0 - torch.sum(w0 * n, -1, True) * n
     R0 *= torch.sign(R0[:, :1])
     R0 = torch.nn.functional.normalize(R0)
-    R1 = torch.cross(n, R0)
+    R1 = torch.linalg.cross(n, R0)
     
     # i = 7859
     # print(R1[i])
@@ -234,7 +234,7 @@ def poisson_mesh(path, vtx, normal, color, depth, thrsh):
     nn_dist, nn_idx, _ = knn_points(torch.from_numpy(vert).to(torch.float32).cuda()[None], vtx.cuda()[None], K=4)
     nn_dist = nn_dist[0]
     nn_idx = nn_idx[0]
-    nn_color = torch.mean(color[nn_idx], axis=1)
+    nn_color = torch.mean(color[nn_idx.cpu()], axis=1)
 
     # create mesh with color and quality (distance to the closest sampled points)
     vert_color = nn_color.clip(0, 1).cpu().numpy()

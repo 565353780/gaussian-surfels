@@ -41,7 +41,6 @@ def render_set(model_path, use_mask, name, iteration, views, gaussians, pipeline
         image, normal, depth, opac, viewspace_point_tensor, visibility_filter, radii = \
             render_pkg["render"], render_pkg["normal"], render_pkg["depth"], render_pkg["opac"], \
             render_pkg["viewspace_points"], render_pkg["visibility_filter"], render_pkg["radii"]
-        
 
         mask_gt = view.get_gtMask(use_mask)
         gt_image = view.get_gtImage(background, use_mask).cuda()
@@ -84,7 +83,7 @@ def render_set(model_path, use_mask, name, iteration, views, gaussians, pipeline
     if name == 'train':
         resampled = torch.cat(resampled, 0)
         mesh_path = f'{model_path}/poisson_mesh_{poisson_depth}'
-        
+
         poisson_mesh(mesh_path, resampled[:, :3], resampled[:, 3:6], resampled[:, 6:], poisson_depth, 1 * 1e-4)
 
 

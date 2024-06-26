@@ -83,20 +83,20 @@ def depth2normal(depth, mask, camera):
     p_b = (p[:, 2:  , 1:-1, :] - p_c) * mask[:, 2:  , 1:-1, :]
     p_r = (p[:, 1:-1, 2:  , :] - p_c) * mask[:, 1:-1, 2:  , :]
 
-    n_ul = torch.cross(p_u, p_l)
-    n_ur = torch.cross(p_r, p_u)
-    n_br = torch.cross(p_b, p_r)
-    n_bl = torch.cross(p_l, p_b)
+    n_ul = torch.linalg.cross(p_u, p_l)
+    n_ur = torch.linalg.cross(p_r, p_u)
+    n_br = torch.linalg.cross(p_b, p_r)
+    n_bl = torch.linalg.cross(p_l, p_b)
 
-    # n_ul = torch.nn.functional.normalize(torch.cross(p_u, p_l), dim=-1)
-    # n_ur = torch.nn.functional.normalize(torch.cross(p_r, p_u), dim=-1)
-    # n_br = torch.nn.functional.normalize(torch.cross(p_b, p_r), dim=-1)
-    # n_bl = torch.nn.functional.normalize(torch.cross(p_l, p_b), dim=-1)
+    # n_ul = torch.nn.functional.normalize(torch.linalg.cross(p_u, p_l), dim=-1)
+    # n_ur = torch.nn.functional.normalize(torch.linalg.cross(p_r, p_u), dim=-1)
+    # n_br = torch.nn.functional.normalize(torch.linalg.cross(p_b, p_r), dim=-1)
+    # n_bl = torch.nn.functional.normalize(torch.linalg.cross(p_l, p_b), dim=-1)
 
-    # n_ul = torch.nn.functional.normalize(torch.cross(p_l, p_u), dim=-1)
-    # n_ur = torch.nn.functional.normalize(torch.cross(p_u, p_r), dim=-1)
-    # n_br = torch.nn.functional.normalize(torch.cross(p_r, p_b), dim=-1)
-    # n_bl = torch.nn.functional.normalize(torch.cross(p_b, p_l), dim=-1)
+    # n_ul = torch.nn.functional.normalize(torch.linalg.cross(p_l, p_u), dim=-1)
+    # n_ur = torch.nn.functional.normalize(torch.linalg.cross(p_u, p_r), dim=-1)
+    # n_br = torch.nn.functional.normalize(torch.linalg.cross(p_r, p_b), dim=-1)
+    # n_bl = torch.nn.functional.normalize(torch.linalg.cross(p_b, p_l), dim=-1)
     
     n = n_ul + n_ur + n_br + n_bl
     n = n[0]

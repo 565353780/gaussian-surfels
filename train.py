@@ -191,9 +191,9 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 normal_wrt = normal2rgb(normal, mask_vis)
                 depth_wrt = depth2rgb(depth, mask_vis)
                 img_wrt = torch.cat([gt_image, image, normal_wrt * opac, depth_wrt * opac], 2)
+                os.makedirs('./test/', exist_ok=True)
                 save_image(img_wrt.cpu(), f'test/test.png')
 
-            
             if iteration < opt.iterations:
                 gaussians.optimizer.step()
                 gaussians.optimizer.zero_grad()
@@ -286,7 +286,7 @@ if __name__ == "__main__":
     args = parser.parse_args(sys.argv[1:])
     args.save_iterations.append(args.iterations)
     print("Optimizing " + args.model_path)
-    
+
     torch.autograd.set_detect_anomaly(args.detect_anomaly)
     training(lp.extract(args), op.extract(args), pp.extract(args), args.test_iterations, args.save_iterations, args.checkpoint_iterations, args.start_checkpoint, args.debug_from)
 
